@@ -12,6 +12,7 @@ import type { RootState } from "@/store";
 import { fetchProductById } from "@/store/productsSlice";
 import { addToWishlist, removeFromWishlist, fetchWishlist } from "@/store/wishlistSlice"; // Import wishlist actions
 import { useAppDispatch } from "@/hooks/useAppDispatch"; // Import useAppDispatch hook
+import { addToCart } from "@/store/cartSlice";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -51,6 +52,12 @@ export default function ProductDetails() {
       } else {
         dispatch(addToWishlist(product.id));
       }
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch(addToCart({ productId: product.id, count: 1 }));
     }
   };
 
@@ -183,7 +190,7 @@ export default function ProductDetails() {
                     <ChevronRight className="h-4 w-4" />
                   </Button>
                 </div>
-                <Button size="lg" className="flex-1">
+                <Button size="lg" className="flex-1" onClick={handleAddToCart}>
                   Add to Cart
                 </Button>
               </div>

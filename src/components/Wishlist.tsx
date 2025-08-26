@@ -44,6 +44,7 @@ import { useSelector } from "react-redux"
 import type { RootState } from "../store"
 import { useAppDispatch } from "../hooks/useAppDispatch"
 import { Link } from "react-router-dom"
+import { addToCart } from "@/store/cartSlice"
 
 // Removed the hardcoded wishlistItems array
 
@@ -78,6 +79,10 @@ export function WishlistPage() {
 
   const handleRemoveFromWishlist = (productId: string) => {
     dispatch(removeFromWishlist(productId))
+  }
+
+  const handleAddToCart = (productId: string, count: number) => {
+    dispatch(addToCart({ productId, count }))
   }
 
   return (
@@ -170,7 +175,7 @@ export function WishlistPage() {
                   {/* Removed Status Cell */}
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button size="sm" variant="outline">
+                      <Button size="sm" variant="outline" onClick={() => handleAddToCart(item.id, 1)}>
                         <ShoppingCart className="h-4 w-4 mr-2" />
                         Add to Cart
                       </Button>
